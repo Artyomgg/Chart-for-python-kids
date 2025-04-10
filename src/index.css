@@ -1,5 +1,5 @@
-:root{
-  --darkColor: #2a2b3b;
+:root {
+	--darkColor: #2a2b3b;
 }
 
 * {
@@ -47,7 +47,7 @@ body {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-  padding: 10px;
+	padding: 10px;
 }
 
 li {
@@ -61,23 +61,23 @@ li {
 	backdrop-filter: blur(5px);
 	-webkit-backdrop-filter: blur(5px);
 	border: 1px solid rgba(255, 255, 255, 0.3);
-  padding: 1rem 1.2rem;
+	padding: 1rem 1.2rem;
 }
 
-.back ul{
-  background: var(--darkColor);
-  border: 2px solid white;
-  padding: 0.5rem ;
-  border-radius: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+.back ul {
+	background: var(--darkColor);
+	border: 2px solid white;
+	padding: 0.5rem;
+	border-radius: 20px;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
 }
 
-.back ul li{
-  border-radius: 10px;
-  border:#535bf2 2px solid;
-  padding: 0.5rem;
+.back ul li {
+	border-radius: 10px;
+	border: #535bf2 2px solid;
+	padding: 0.5rem;
 }
 
 h1 {
@@ -85,17 +85,404 @@ h1 {
 	text-align: center;
 }
 
-.toAfter{
-  background: #535bf2;
-  display: flex;
-  justify-content: center;
-  transition: 0.4s;
-  border-radius: 9px;
+.toAfter {
+	background: #535bf2;
+	display: flex;
+	justify-content: center;
+	transition: 0.4s;
+	border-radius: 9px;
 }
 
+.toAfter:hover {
+	background: black;
+	transform: scale(1.01);
+	cursor: pointer;
+}
 
-.toAfter:hover{
-  background: black;
-  transform: scale(1.01);
-  cursor: pointer;
+/* Базовые стили */
+:root {
+	--primary-color: #4a6bdf;
+	--primary-light: #6b8cff;
+	--text-dark: #2d3748;
+	--text-medium: #4a5568;
+	--text-light: #64748b;
+	--bg-light: #f5f7fa;
+	--border-color: #e2e8f0;
+	--card-bg: #ffffff;
+}
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+		Ubuntu, Cantarell, sans-serif;
+}
+
+html {
+	font-size: 16px;
+}
+
+body {
+	background-color: var(--bg-light);
+	color: var(--text-medium);
+	line-height: 1.5;
+}
+
+.app-container {
+	max-width: 100%;
+	min-height: 100vh;
+	padding: 0;
+}
+
+/* Общие компоненты */
+.header {
+	padding: 1rem;
+	background: var(--card-bg);
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+	position: sticky;
+	top: 0;
+	z-index: 10;
+	display: flex;
+	align-items: center;
+}
+
+.page-title {
+	font-size: 1.4rem;
+	color: var(--text-dark);
+	margin-left: 1rem;
+}
+
+.back-button {
+	background: none;
+	border: none;
+	color: var(--primary-color);
+	font-size: 1rem;
+	font-weight: 600;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	padding: 0.5rem;
+}
+
+/* Таблица лидеров */
+.users-grid {
+	padding: 1rem;
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 1rem;
+}
+
+.user-card {
+	background: var(--card-bg);
+	border-radius: 12px;
+	padding: 1rem;
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+	text-decoration: none;
+	color: inherit;
+	border: 1px solid var(--border-color);
+	transition: transform 0.2s;
+}
+
+.user-card:active {
+	transform: scale(0.98);
+}
+
+.user-rank {
+	background: var(--primary-color);
+	color: white;
+	width: 2rem;
+	height: 2rem;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: bold;
+	font-size: 0.9rem;
+}
+
+.user-avatar {
+	font-size: 1.8rem;
+}
+
+.user-info {
+	flex: 1;
+}
+
+.user-info h3 {
+	margin-bottom: 0.5rem;
+	color: var(--text-dark);
+	font-size: 1.1rem;
+}
+
+.exp-container {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.exp-bar {
+	flex: 1;
+	height: 0.5rem;
+	background: var(--border-color);
+	border-radius: 0.25rem;
+	overflow: hidden;
+}
+
+.exp-progress {
+	height: 100%;
+	background: linear-gradient(
+		90deg,
+		var(--primary-color),
+		var(--primary-light)
+	);
+	border-radius: 0.25rem;
+}
+
+.exp-value {
+	font-size: 0.8rem;
+	color: var(--text-light);
+	white-space: nowrap;
+}
+
+/* Страница профиля */
+.profile-content {
+	padding: 1rem;
+}
+
+.profile-header {
+	display: flex;
+	gap: 1rem;
+	margin-bottom: 1.5rem;
+	align-items: flex-start;
+}
+
+.avatar-container {
+	position: relative;
+}
+
+.profile-avatar {
+	font-size: 3rem;
+	background: #f0f4ff;
+	width: 4rem;
+	height: 4rem;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 3px solid var(--primary-color);
+}
+
+.level-badge {
+	position: absolute;
+	bottom: -0.5rem;
+	right: -0.5rem;
+	background: var(--primary-color);
+	color: white;
+	padding: 0.25rem 0.75rem;
+	border-radius: 1rem;
+	font-size: 0.7rem;
+	font-weight: 600;
+	white-space: nowrap;
+}
+
+.profile-main-info {
+	flex: 1;
+}
+
+.profile-name {
+	font-size: 1.5rem;
+	color: var(--text-dark);
+	margin-bottom: 0.5rem;
+}
+
+.profile-stats {
+	display: flex;
+	gap: 1rem;
+}
+
+.stat-item {
+	text-align: center;
+	background: #f8fafc;
+	padding: 0.5rem;
+	border-radius: 0.5rem;
+	min-width: 4rem;
+}
+
+.stat-value {
+	font-size: 1.2rem;
+	font-weight: 700;
+	color: var(--primary-color);
+}
+
+.stat-label {
+	font-size: 0.7rem;
+	color: var(--text-light);
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+}
+
+.progress-container {
+	margin: 1.5rem 0;
+}
+
+.progress-info {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 0.5rem;
+	font-size: 0.9rem;
+}
+
+.progress-bar {
+	height: 0.5rem;
+	background: var(--border-color);
+	border-radius: 0.25rem;
+	overflow: hidden;
+}
+
+.progress-fill {
+	height: 100%;
+	background: linear-gradient(
+		90deg,
+		var(--primary-color),
+		var(--primary-light)
+	);
+	border-radius: 0.25rem;
+}
+
+.profile-section {
+	margin: 1.5rem 0;
+}
+
+.section-title {
+	color: var(--text-dark);
+	margin-bottom: 1rem;
+	font-size: 1.2rem;
+	padding-bottom: 0.5rem;
+	border-bottom: 2px solid #f0f4ff;
+}
+
+.about-text {
+	line-height: 1.6;
+}
+
+.skills-container {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+}
+
+.skill-tag {
+	background: #f0f4ff;
+	color: var(--primary-color);
+	padding: 0.4rem 0.8rem;
+	border-radius: 1rem;
+	font-size: 0.8rem;
+	font-weight: 500;
+}
+
+.achievements-grid {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 0.8rem;
+}
+
+.achievement-card {
+	background: var(--card-bg);
+	border-radius: 0.6rem;
+	padding: 0.8rem;
+	display: flex;
+	align-items: center;
+	gap: 0.8rem;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+	border: 1px solid var(--border-color);
+}
+
+.achievement-icon {
+	font-size: 1.5rem;
+}
+
+.achievement-text {
+	font-weight: 500;
+	color: var(--text-dark);
+	font-size: 0.9rem;
+}
+
+/* Адаптация для планшетов */
+@media (min-width: 600px) {
+	.app-container {
+		padding: 1rem;
+	}
+
+	.users-grid {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	.achievements-grid {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	.header {
+		padding: 1rem 1.5rem;
+	}
+
+	.profile-content {
+		padding: 1.5rem;
+	}
+}
+
+/* Адаптация для десктопов */
+@media (min-width: 900px) {
+	.users-grid {
+		grid-template-columns: repeat(3, 1fr);
+	}
+
+	.achievements-grid {
+		grid-template-columns: repeat(3, 1fr);
+	}
+
+	.app-container {
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+}
+
+/* Особые стили для очень маленьких экранов */
+@media (max-width: 360px) {
+	html {
+		font-size: 14px;
+	}
+
+	.profile-header {
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+	}
+
+	.profile-stats {
+		justify-content: center;
+	}
+}
+
+.update-button {
+	background-color: var(--primary-color);
+	color: white;
+	border: none;
+	border-radius: 20px;
+	padding: 0.5rem 1rem;
+	font-size: 0.8rem;
+	margin-left: auto;
+	cursor: pointer;
+	transition: background-color 0.2s;
+}
+
+.update-button:hover {
+	background-color: var(--primary-light);
+}
+
+.update-button:active {
+	transform: scale(0.98);
 }
