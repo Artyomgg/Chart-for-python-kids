@@ -30,7 +30,7 @@ function Leaderboard() {
 				>
 					← На главную
 				</button>
-				<h1 className='page-title'>🏆 Таблица лидеров</h1>
+				<h1 className='page-title' style={{marginRight:'20px'}}>🏆 Таблица лидеров</h1>
 				<button className='update-button' onClick={handleUpdateUsers}>
 					Обновить
 				</button>
@@ -38,11 +38,11 @@ function Leaderboard() {
 
 			<div className='users-grid'>
 				{Users.map((user, index) => (
-					<Link to={`/user/${user.id}`} className='user-card' key={user.id}>
-						<div className='user-rank'>#{index + 1}</div>
+					<Link to={`/user/${user.id}`} className='user-card' key={index}>
+						<div className='user-rank'>#{user.fullName == 'Артем Дудко' ? index  : index + 1}</div>
 						<div className='user-avatar'>{user.avatar}</div>
 						<div className='user-info'>
-							<h3>{user.name}</h3>
+							<h3>{user.fullName}</h3>
 							<div className='exp-container'>
 								<div className='exp-bar'>
 									<div
@@ -86,7 +86,7 @@ function UserProfile() {
 						<div className='level-badge'>{user.level}</div>
 					</div>
 					<div className='profile-main-info'>
-						<h2 className='profile-name'>{user.name}</h2>
+						<h2 className='profile-name'>{user.fullName}</h2>
 						<div className='profile-stats'>
 							<div className='stat-item'>
 								<div className='stat-value'>{user.exp}</div>
