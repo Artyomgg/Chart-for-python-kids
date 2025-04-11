@@ -39,7 +39,7 @@ function Leaderboard() {
 			<div className='users-grid'>
 				{Users.map((user, index) => (
 					<Link to={`/user/${user.id}`} className='user-card' key={index}>
-						<div className='user-rank'>#{user.fullName == 'Артем Дудко' ? index  : index + 1}</div>
+						<div className='user-rank'>#{index + 1}</div>
 						<div className='user-avatar'>{user.avatar}</div>
 						<div className='user-info'>
 							<h3>{user.fullName}</h3>

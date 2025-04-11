@@ -12,15 +12,15 @@ export const Users = [
     progress: 100
   },
   {
-    id: 1,
+    id: 2,
     fullName: 'Федор Томашев',
-    exp: '?',
+    exp: '0',
     level: '0',
     achievements: [],
     about: 'Ученик 6Л',
     avatar: '👨‍💻',
-    skills: ['JavaScript', 'React'],
-    progress: 100
+    skills: [],
+    progress: 0
   },
 ];
 
