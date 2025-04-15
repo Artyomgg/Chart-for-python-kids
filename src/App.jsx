@@ -1,26 +1,79 @@
+import { useState } from 'react'
 import {
 	Link,
 	Route,
 	BrowserRouter as Router,
 	Routes,
+	useNavigate,
 	useParams,
 } from 'react-router'
 import './index.css'
 import { Users, updateUsersData } from './userData'
 
+// Компонент водяного знака
+const Watermark = () => {
+	const patterns = ['⛛', '⯀', '⯁', '✧', '✦', '✶', '❂', '✺', '✼', '❀']
+
+	const getRandomPattern = () => {
+		return patterns[Math.floor(Math.random() * patterns.length)]
+	}
+
+	return (
+		<div className='watermark'>
+			{Array.from({ length: 50 }).map((_, i) => (
+				<span
+					key={i}
+					className='watermark-pattern'
+					style={{
+						left: `${Math.random() * 100}%`,
+						top: `${Math.random() * 100}%`,
+						transform: `rotate(${Math.random() * 360}deg)`,
+						fontSize: `${Math.random() * 30 + 10}px`,
+						color: `hsl(${Math.random() * 360}, 70%, 60%)`,
+					}}
+				>
+					{getRandomPattern()}
+				</span>
+			))}
+		</div>
+	)
+}
+
+// Компонент страницы 404
+function NotFoundPage() {
+	const navigate = useNavigate()
+
+	return (
+		<div className='not-found-container'>
+			<Watermark />
+			<h1>404</h1>
+			<p>Такой страницы не существует</p>
+			<button onClick={() => navigate('/')} className='back-to-main'>
+				Вернуться на главную
+			</button>
+		</div>
+	)
+}
+
 function Leaderboard() {
-	// Для примера: функция обновления данных
+	const [searchTerm, setSearchTerm] = useState('')
+
+	const filteredUsers = Users.filter(user =>
+		user.fullName.toLowerCase().includes(searchTerm.toLowerCase())
+	)
+
 	const handleUpdateUsers = () => {
 		const updatedUsers = Users.map(user => ({
 			...user,
-			exp: String(Number(user.exp) + 10), // Увеличиваем XP на 10 для примера
+			exp: String(Number(user.exp) + 10),
 		}))
 		updateUsersData(updatedUsers)
-		window.location.reload() // В реальном приложении используйте state
+		window.location.reload()
 	}
 
 	return (
 		<div className='app-container'>
+			<Watermark />
 			<header className='header'>
 				<button
 					className='back-button'
@@ -30,50 +83,85 @@ function Leaderboard() {
 				>
 					← На главную
 				</button>
-				<h1 className='page-title' style={{marginRight:'20px'}}>🏆 Таблица лидеров</h1>
+				<h1 className='page-title' style={{ marginRight: '20px' }}>
+					🏆 Таблица лидеров
+				</h1>
 				<button className='update-button' onClick={handleUpdateUsers}>
 					Обновить
 				</button>
 			</header>
 
+			<div className='search-container'>
+				<input
+					type='text'
+					placeholder='Поиск по имени...'
+					value={searchTerm}
+					onChange={e => setSearchTerm(e.target.value)}
+					className='search-input'
+				/>
+			</div>
+
 			<div className='users-grid'>
-				{Users.map((user, index) => (
-					<Link to={`/user/${user.id}`} className='user-card' key={index}>
-						<div className='user-rank'>#{index + 1}</div>
-						<div className='user-avatar'>{user.avatar}</div>
-						<div className='user-info'>
-							<h3>{user.fullName}</h3>
-							<div className='exp-container'>
-								<div className='exp-bar'>
-									<div
-										className='exp-progress'
-										style={{ width: `${user.progress}%` }}
-									></div>
+				{filteredUsers.length > 0 ? (
+					filteredUsers.map((user, index) => (
+						<Link to={`/user/${user.id}`} className='user-card' key={user.id}>
+							<div className='user-rank'>#{index + 1}</div>
+							<div className='user-avatar'>{user.avatar}</div>
+							<div className='user-info'>
+								<h3>{user.fullName}</h3>
+								<div className='exp-container'>
+									<div className='exp-bar'>
+										<div
+											className='exp-progress'
+											style={{ width: `${user.progress}%` }}
+										></div>
+									</div>
+									<span className='exp-value'>{user.exp} XP</span>
 								</div>
-								<span className='exp-value'>{user.exp} XP</span>
 							</div>
-						</div>
-					</Link>
-				))}
+						</Link>
+					))
+				) : (
+					<div className='no-results'>Пользователи не найдены</div>
+				)}
 			</div>
 		</div>
 	)
 }
 
-// ... остальной код (UserProfile и App компоненты остаются без изменений)
-
 function UserProfile() {
 	const { id } = useParams()
+	const navigate = useNavigate()
 	const user = Users.find(u => u.id === parseInt(id))
 
 	if (!user) {
-		return <div className='not-found'>Пользователь не найден</div>
+		return (
+			<div className='app-container'>
+				<Watermark />
+				<header className='header'>
+					<button className='back-button' onClick={() => navigate(-1)}>
+						← Назад
+					</button>
+					<h1 className='page-title'>Ошибка</h1>
+				</header>
+				<div className='profile-content'>
+					<div className='user-not-found'>
+						<h2>Такого пользователя не существует</h2>
+						<p>Пользователь с ID {id} не найден в системе</p>
+						<button onClick={() => navigate('/')} className='back-to-main'>
+							Вернуться к таблице лидеров
+						</button>
+					</div>
+				</div>
+			</div>
+		)
 	}
 
 	return (
 		<div className='app-container'>
+			<Watermark />
 			<header className='header'>
-				<button className='back-button' onClick={() => window.history.back()}>
+				<button className='back-button' onClick={() => navigate(-1)}>
 					← Назад
 				</button>
 				<h1 className='page-title'>Профиль</h1>
@@ -151,6 +239,7 @@ function App() {
 			<Routes>
 				<Route path='/' element={<Leaderboard />} />
 				<Route path='/user/:id' element={<UserProfile />} />
+				<Route path='*' element={<NotFoundPage />} />
 			</Routes>
 		</Router>
 	)
