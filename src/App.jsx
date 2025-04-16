@@ -58,7 +58,10 @@ function NotFoundPage() {
 function Leaderboard() {
 	const [searchTerm, setSearchTerm] = useState('')
 
-	const filteredUsers = Users.filter(user =>
+	// Сортируем пользователей по XP в порядке убывания
+	const sortedUsers = [...Users].sort((a, b) => Number(b.exp) - Number(a.exp))
+
+	const filteredUsers = sortedUsers.filter(user =>
 		user.fullName.toLowerCase().includes(searchTerm.toLowerCase())
 	)
 
@@ -134,6 +137,12 @@ function UserProfile() {
 	const navigate = useNavigate()
 	const user = Users.find(u => u.id === parseInt(id))
 
+	// Получаем позицию пользователя в рейтинге
+	const userRank =
+		[...Users]
+			.sort((a, b) => Number(b.exp) - Number(a.exp))
+			.findIndex(u => u.id === parseInt(id)) + 1
+
 	if (!user) {
 		return (
 			<div className='app-container'>
@@ -176,6 +185,10 @@ function UserProfile() {
 					<div className='profile-main-info'>
 						<h2 className='profile-name'>{user.fullName}</h2>
 						<div className='profile-stats'>
+							<div className='stat-item'>
+								<div className='stat-value'>#{userRank}</div>
+								<div className='stat-label'>Рейтинг</div>
+							</div>
 							<div className='stat-item'>
 								<div className='stat-value'>{user.exp}</div>
 								<div className='stat-label'>XP</div>
