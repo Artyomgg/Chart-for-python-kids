@@ -57,13 +57,22 @@ function NotFoundPage() {
 
 function Leaderboard() {
 	const [searchTerm, setSearchTerm] = useState('')
+	const [achievementFilter, setAchievementFilter] = useState('')
 
 	// Сортируем пользователей по XP в порядке убывания
 	const sortedUsers = [...Users].sort((a, b) => Number(b.exp) - Number(a.exp))
 
-	const filteredUsers = sortedUsers.filter(user =>
-		user.fullName.toLowerCase().includes(searchTerm.toLowerCase())
-	)
+	const filteredUsers = sortedUsers.filter(user => {
+		const nameMatch = user.fullName
+			.toLowerCase()
+			.includes(searchTerm.toLowerCase())
+		const achievementMatch =
+			achievementFilter === '' ||
+			user.achievements.some(ach =>
+				ach.toLowerCase().includes(achievementFilter.toLowerCase())
+			)
+		return nameMatch && achievementMatch
+	})
 
 	const handleUpdateUsers = () => {
 		const updatedUsers = Users.map(user => ({
@@ -73,6 +82,11 @@ function Leaderboard() {
 		updateUsersData(updatedUsers)
 		window.location.reload()
 	}
+
+	// Получаем уникальные достижения для подсказок
+	const allAchievements = Array.from(
+		new Set(Users.flatMap(user => user.achievements))
+	)
 
 	return (
 		<div className='app-container'>
@@ -94,14 +108,31 @@ function Leaderboard() {
 				</button>
 			</header>
 
-			<div className='search-container'>
-				<input
-					type='text'
-					placeholder='Поиск по имени...'
-					value={searchTerm}
-					onChange={e => setSearchTerm(e.target.value)}
-					className='search-input'
-				/>
+			<div className='search-filters'>
+				<div className='search-container'>
+					<input
+						type='text'
+						placeholder='Поиск по имени...'
+						value={searchTerm}
+						onChange={e => setSearchTerm(e.target.value)}
+						className='search-input'
+					/>
+				</div>
+				<div className='search-container'>
+					<input
+						type='text'
+						placeholder='Фильтр по достижениям...'
+						value={achievementFilter}
+						onChange={e => setAchievementFilter(e.target.value)}
+						className='search-input'
+						list='achievements-list'
+					/>
+					<datalist id='achievements-list'>
+						{allAchievements.map((achievement, index) => (
+							<option key={index} value={achievement} />
+						))}
+					</datalist>
+				</div>
 			</div>
 
 			<div className='users-grid'>
