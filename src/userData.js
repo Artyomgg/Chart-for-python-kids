@@ -140,6 +140,17 @@ export const Users = [
 	},
 	{
 		id: 13,
+		fullName: 'Судник Илья',
+		exp: '0',
+		level: '0',
+		achievements: ['Тигр'],
+		about: 'Ученик 6Л',
+		avatar: '👨‍💻',
+		skills: [],
+		progress: 0,
+	},
+	{
+		id: 13,
 		fullName: 'Федор Томашев',
 		exp: '0',
 		level: '0',
