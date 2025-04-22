@@ -86,13 +86,13 @@ export const Users = [
 	{
 		id: 8,
 		fullName: 'Лукашеня Михаил',
-		exp: '0',
+		exp: '100',
 		level: '0',
 		achievements: ['Дизайнер'],
 		about: 'Занимаюсь Дизайном 5 лет Ученик 6Л',
 		avatar: '👨‍💻',
 		skills: ['Photoshop', 'Illustrator', 'Animate'],
-		progress: 0,
+		progress: 3,
 	},
 	{
 		id: 9,
